@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}
+        {% endblock %}
+    </title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
+    <style>
+        .body{
+            background-color: #486a93;
+        }
+    </style>
+    {% if 'user_id' in session %}
+    <style>
+        #container{
+            display: contents;
+            position: fixed;
+            margin-top: 3px;
+        }
+    </style>
+    {% else %}
+    <style>
+        #container{
+            position: fixed;
+            top: 0%;
+        }
+    </style>
+    {% endif %}
+    {% if 'user_id' in session %}
+        <style>
+            #alert{
+                margin-bottom: 0px;
+            }
+        </style>
+    {% endif %}
+    {% block style %}
+    {% endblock %}
+</head>
+<body class=" body d-flex flex-column min-vh-100">
+    {% if 'user_id' in session %}
+            {% include 'navbar.html'   %}
+    {% endif %}
+    <div id="container" class="container">
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          {% for category, message in messages %}
+            <div id="alert" class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+              {{ message }}
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+    </div>
+
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    {% block script %}
+    {% endblock %}
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+
+</html>

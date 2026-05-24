@@ -1,0 +1,141 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    Admin Dashboard
+{% endblock %}
+
+{% block style %}
+<style>
+    .home {
+        background-color: #486a93;
+        color: #fff;
+        min-height: 100vh;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        padding: 2rem;
+    }
+
+    .dashboard-title {
+        font-size: 2rem;
+        font-weight: 700;
+        color: #ff9f43;
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+
+    .parking-lots-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2rem;
+        justify-content: center;
+    }
+
+    .lot-card {
+        background-color: #1a2a44;
+        border-radius: 1rem;
+        padding: 1.5rem;
+        width: 300px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    }
+
+    .lot-card h5 {
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+    }
+
+    .lot-actions {
+        margin-bottom: 1rem;
+    }
+
+    .lot-actions a {
+        color: #ff9f43;
+        margin-right: 1rem;
+        text-decoration: none;
+    }
+
+    .occupied-status {
+        color: #7bed9f;
+        font-size: 0.95rem;
+        margin-bottom: 1rem;
+    }
+
+    .slot-grid {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 0.5rem;
+    }
+
+    .slot {
+        width: 2rem;
+        height: 2rem;
+        border-radius: 4px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-weight: bold;
+        font-size: 0.9rem;
+    }
+
+    .slot.occupied {
+        background-color: #f08c14;
+        color: #000;
+    }
+
+    .slot.available {
+        background-color: #7bed9f;
+        color: #000;
+    }
+
+    .add-lot-btn {
+        display: block;
+        margin: 2rem auto 0;
+        background-color: #ff9f43;
+        border: none;
+        padding: 0.75rem 2rem;
+        border-radius: 0.75rem;
+        color: #1a2a44;
+        font-weight: bold;
+        text-align: center;
+        transition: background-color 0.3s ease;
+        text-decoration: none;
+    }
+
+    .slot a {
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+    }
+    .add-lot-btn:hover {
+        background-color: #f08c14;
+        color: #1a2a44;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="home">
+<h2 class="dashboard-title">Parking Lots</h2>
+
+<div class="parking-lots-container">
+    {% for lot in parkinglot %}
+    <div class="lot-card">
+        <h5>Parking#{{ lot.id }}</h5>
+        <div class="mb-3 mt-3">Prime Location Name - {{lot.prime_location_name}}</div>
+        <div class="lot-actions">
+            <a href="{{ url_for('edit_lot',id=lot.id) }}">Edit</a>
+            <a href="{{ url_for('delete_lot',id=lot.id ) }}">Delete</a>
+        </div>
+        <div class="occupied-status">(Occupied: {{ lot.spots | selectattr('status','equalto', 'O') | list | length }}/{{ lot.spots | list | length }})</div>
+        <div class="slot-grid">
+            {% for slot in lot.spots %}
+            <div class="slot {{ 'occupied' if slot.status=='O' else 'available' }}">
+                <a href="{{ url_for('spotdetails', id=slot.id ) }}">{{ 'O' if slot.status=='O' else 'A' }}</a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<a href="/lot/add" class="add-lot-btn">+ Add Lot</a>
+</div>
+{% endblock %}

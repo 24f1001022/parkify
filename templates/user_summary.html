@@ -1,0 +1,61 @@
+{% extends 'layout.html' %}
+{% block title %}User Summary{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center mb-5 text-warning fw-bold">Used Parking Spots Summary</h2>
+    <div class="row g-4 justify-content-center">
+        <div class="col-md-6">
+            <div class="card bg-dark border-0 shadow rounded-4">
+                <div class="card-body">
+                    <h5 class="card-title text-center text-light mb-3">Your Parking Activity</h5>
+                    <div style="height: 300px;">
+                        <canvas id="usedSpotsChart" style="height: 100%; width: 100%;"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    const usedSpotsData = {
+        labels: {{ chart_data | map(attribute='location') | list | tojson | safe }},
+        datasets: [{
+            label: 'Used Spots',
+            data: {{ chart_data | map(attribute='used') | list | tojson | safe }},
+            backgroundColor: 'rgba(72, 201, 176, 0.7)', 
+            borderColor: 'rgba(26, 188, 156, 1)',      
+            borderWidth: 1
+        }]
+    };
+
+    new Chart(document.getElementById('usedSpotsChart'), {
+        type: 'bar',
+        data: usedSpotsData,
+        options: {
+            responsive: true,
+            maintainAspectRatio: true,
+            plugins: {
+                legend: {
+                    labels: {
+                        color: '#fff'
+                    }
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: { color: "#ffffff" },
+                    grid: { color: "#444" }
+                },
+                x: {
+                    ticks: { color: "#ffffff" },
+                    grid: { color: "#444" }
+                }
+            }
+        }
+    });
+</script>
+{% endblock %}

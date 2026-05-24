@@ -1,0 +1,65 @@
+<style>
+    .custom-navbar {
+      background-color: #1a2a44;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      padding: 0.75rem 1.5rem;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    }
+  
+    .navbar-brand {
+      color: #ff9f43 !important;
+      font-weight: 600;
+      font-size: 1.25rem;
+    }
+  
+    .navbar-nav .nav-link {
+      color: #fff !important;
+      margin-left: 1rem;
+      transition: color 0.3s ease;
+    }
+  
+    .navbar-nav .nav-link:hover {
+      color: #ff9f43 !important;
+    }
+  
+  </style>
+  
+  <nav class="navbar navbar-expand-lg navbar-dark custom-navbar">
+    <div class="container-fluid">
+      <a class="navbar-brand d-flex align-items-center" href="/">
+        <i class="bi bi-car-front-fill me-2"></i> PARKIFY
+      </a>
+        <div class="collapse navbar-collapse" id="navbarContent">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/">Home</a>
+          </li>
+          {% if not g.user.is_admin %}
+            <li class="nav-item">
+              <a class="nav-link" href="/profile">Profile</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/user/summary">Summary</a>
+            </li>
+          {% else %}
+            <li class="nav-item">
+              <a class="nav-link" href="/admin/summary">Summary</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/profile">Profile</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/search">Search</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/users">Users</a>
+            </li>
+          {% endif %}
+            <li class="nav-item">
+              <a class="nav-link" href="/logout">Logout</a>
+            </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  

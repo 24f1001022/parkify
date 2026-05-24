@@ -1,0 +1,101 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    Profile
+{% endblock %}
+
+{% block style %}
+<style>
+    .main {
+        background-color: #486a93;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        color: #fff;
+    }
+
+    .profile-card {
+        background: #1a2a44;
+        border-radius: 1rem;
+        padding: 2rem;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        width: 120%;
+        max-width: 500px;
+    }
+
+    .profile-card h2 {
+        color: #ff9f43;
+        font-weight: 700;
+        text-align: center;
+        margin-bottom: 1.5rem;
+    }
+
+    .profile-info {
+        margin-bottom: 1.2rem;
+    }
+
+    .profile-info label {
+        font-weight: bold;
+        color: #ff9f43;
+    }
+
+    .profile-info p {
+        margin: 0;
+        color: #cfd8dc;
+    }
+
+    .btn-edit {
+        background-color: #ff9f43;
+        border: none;
+        width: 100%;
+        margin-top: 1rem;
+    }
+
+    .btn-edit:hover {
+        background-color: #f08c14;
+    }
+
+    @media (max-width: 460px) {
+        body {
+            padding: 1rem;
+        }
+
+        .profile-card {
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="main">
+<main class="profile-card">
+    <h2><i class="bi bi-person-circle"></i> Your Profile</h2>
+
+    <div class="profile-info">
+        <label>Full Name:</label>
+        <p>{{ g.user.full_name }}</p>
+    </div>
+
+    <div class="profile-info">
+        <label>Email:</label>
+        <p>{{ g.user.email }}</p>
+    </div>
+
+    <div class="profile-info">
+        <label>Address:</label>
+        <p>{{ g.user.address }}</p>
+    </div>
+
+    <div class="profile-info">
+        <label>Pincode:</label>
+        <p>{{ g.user.pin_code }}</p>
+    </div>
+
+    <a href="/edit_profile" class="btn btn-edit">Edit Profile</a>
+</main>
+</div>
+{% endblock %}

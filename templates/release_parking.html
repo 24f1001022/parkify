@@ -1,0 +1,122 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    Release Parking
+{% endblock %}
+
+{% block style %}
+<style>
+    .main {
+        background-color: #486a93;
+        min-height: 100vh;
+        padding-top: 2rem;
+        padding-bottom: 2rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        color: #fff;
+    }
+
+    .booking-card {
+        background: #1a2a44;
+        border-radius: 1rem;
+        padding: 2rem;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        width: 100%;
+        max-width: 500px;
+    }
+
+    .edit-card h2 {
+        font-weight: 700;
+        color: #ff9f43;
+        text-align: center;
+        margin-bottom: 1.5rem;
+    }
+
+    .form-label {
+        color: #cfd8dc;
+        font-weight: 800;
+    }
+
+    .form-control:focus {
+        box-shadow: 0 0 0 0.25rem rgba(255, 159, 67, 0.5);
+        border-color: #ff9f43;
+    }
+    .form-control{
+        background-color: #d0d0d0 !important;
+    }
+    .section-title{
+        color: #ff9f43;
+    }
+
+    .btn-save {
+        background-color: #ff9f43;
+        border: none;
+        width: 100%;
+        margin-top: 1rem;
+    }
+
+    .btn-save:hover {
+        background-color: #f08c14;
+    }
+
+    @media (max-width: 460px) {
+        body {
+            padding: 1rem;
+        }
+
+        .edit-card {
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+        }
+    }
+</style>
+    
+{% endblock %}
+
+{% block content %}
+<div class="main">
+    <main class="booking-card">
+        <h2 class="section-title"><i class="bi bi-calendar-range-fill"></i> RELEASE PARKING</h2>
+        <form method="POST" action="{{ url_for('release_parking_post', id=reservation.id) }}">
+            <div class="mb-3">
+                <label for="SpotId" class="form-label">SPOT ID:</label>
+                <input type="text" class="form-control" id="SpotId" name="SpotId" value="{{reservation.spot_id}}" readonly />
+            </div>
+            <div class="mb-3">
+                <label for="LotId" class="form-label">BOOKING ID:</label>
+                <input type="text" class="form-control" id="LotId" name="LotId" value="{{reservation.id}}" readonly />
+            </div>
+            <div class="mb-3">
+                <label for="UserId" class="form-label">USER ID:</label>
+                <input type="text" class="form-control" id="UserId" name="UserId" value="{{reservation.user_id}}" readonly />
+            </div>
+            <div class="mb-3">
+                <label for="VehicalNo" class="form-label">Vehicle No:</label>
+                <input type="text" class="form-control" id="VehicalNo" name="VehicalNo" value="{{reservation.vehical_no}}" readonly/>
+            </div>
+            <div class="mb-3">
+                <label for="parkingtime" class="form-label">PARKING DATE / TIME:</label>
+                <input type="datetime-local" class="form-control" id="parkingtime" name="parkingtime" value="{{ reservation.parking_timestamp.strftime('%Y-%m-%dT%H:%M') }}" readonly/>
+              </div>
+              
+              <div class="mb-3">
+                <label for="releasetime" class="form-label">RELEASE DATE / TIME:</label>
+                <input type="datetime-local" class="form-control" id="releasetime" name="releasetime" value="{{ reservation.leaving_timestamp.strftime('%Y-%m-%dT%H:%M') }}" readonly/>
+            </div>
+            <div class="mb-3">
+                <label for="costperday" class="form-label">COST PER HOUR:</label>
+                <input type="number" class="form-control" id="costperday" name="costperday" value="{{reservation.cost_per_unit}}" step="0.01" readonly/>
+            </div>
+            <div class="mb-3">
+                <label for="totalcost" class="form-label">TOTAL COST:</label>
+                <input type="number" class="form-control" id="totalcost" name="totalcost" value="{{reservation.total_cost}}" step="0.01" readonly/>
+            </div>
+            <button type="submit" class="btn btn-save">Release Now</button>
+            <a href="{{ url_for('home' ) }}" type="submit" class="btn btn-save">Cancel</a>
+        </form>
+    </main>
+    </div>
+    
+{% endblock %}

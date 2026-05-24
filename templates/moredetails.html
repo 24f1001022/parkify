@@ -1,0 +1,108 @@
+{% extends 'layout.html' %}
+{% block title %}
+    MORE DETAILS
+{% endblock %}
+{% block style %}
+<style>
+    .main {
+        background-color: #486a93;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding-top: 2rem;
+        padding-bottom: 2rem;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        color: #fff;
+    }
+
+    .spotdetails-card {
+        background: #1a2a44;
+        border-radius: 1rem;
+        padding: 2rem;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        width: 100%;
+        max-width: 500px;
+    }
+
+    .edit-card h2 {
+        font-weight: 700;
+        color: #ff9f43;
+        text-align: center;
+        margin-bottom: 1.5rem;
+    }
+
+    .form-label {
+        color: #cfd8dc;
+        font-weight: 800;
+    }
+
+    .form-control:focus {
+        box-shadow: 0 0 0 0.25rem rgba(255, 159, 67, 0.5);
+        border-color: #ff9f43;
+    }
+    .form-control{
+        background-color: #d0d0d0 !important;
+    }
+    .section-title{
+        color: #ff9f43;
+    }
+
+    .btn-save {
+        background-color: #ff9f43;
+        border: none;
+        width: 100%;
+        margin-top: 1rem;
+    }
+
+    .btn-save:hover {
+        background-color: #f08c14;
+    }
+
+    @media (max-width: 460px) {
+        body {
+            padding: 1rem;
+        }
+
+        .edit-card {
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+        }
+    }
+</style>
+{% endblock %}
+{% block content %}
+<div class="main">
+    <main class="spotdetails-card">
+        <h2 class="section-title"><i class="bi bi-shop-window"></i> SPOT DETAILS</h2>
+        <form method="POST" action="#">
+            <div class="mb-3">
+                <label for="SpotId" class="form-label">SPOT ID:</label>
+                <input type="text" class="form-control" id="SpotId" name="SpotId" value="{{parkingspot.id}}" readonly />
+            </div>
+            <div class="mb-3">
+                <label for="customerid" class="form-label">CUSTOMER ID:</label>
+                <input type="text" class="form-control" id="customerid" name="customerid" value="{{reservation.user_id}}" readonly />
+            </div>
+            <div class="mb-3">
+                <label for="status" class="form-label">STATUS:</label>
+                <input type="text" class="form-control" id="status" name="status" value="{{ 'Occupied' if parkingspot.status == 'O' else 'Available' }}" readonly />
+            </div>
+            <div class="mb-3">
+                <label for="vehical_no" class="form-label">VEHICAL NO:</label>
+                <input type="text" class="form-control" id="vehical_no" name="vehical_no" value="{{reservation.vehical_no}}" readonly />
+            </div>
+            <div class="mb-3">
+                <label for="parkingtime" class="form-label">TIME OF PARKING:</label>
+                <input type="datetime" class="form-control" id="parkingtime" name="parkingtime" value="{{ reservation.parking_timestamp.date()}}" readonly />
+            </div>
+            <div class="mb-3">
+                <label for="parkingcost" class="form-label">EST PARKING COST:</label>
+                <input type="number" class="form-control" id="parkingcost" name="parkingcost" value="{{reservation.total_cost}}" step="0.01" readonly />
+            </div>
+            <a href="{{ url_for('spotdetails',id=parkingspot.id ) }}" class="btn btn-save">CLOSE</a>
+            
+        </form>
+    </main>
+    </div>
+{% endblock %}

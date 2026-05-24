@@ -1,0 +1,94 @@
+{% extends 'layout.html' %}
+{% block title %}
+    Spot details
+{% endblock %}
+{% block style %}
+<style>
+    .main {
+        background-color: #486a93;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        color: #fff;
+    }
+
+    .spotdetails-card {
+        background: #1a2a44;
+        border-radius: 1rem;
+        padding: 2rem;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        width: 100%;
+        max-width: 500px;
+    }
+
+    .edit-card h2 {
+        font-weight: 700;
+        color: #ff9f43;
+        text-align: center;
+        margin-bottom: 1.5rem;
+    }
+
+    .form-label {
+        color: #cfd8dc;
+        font-weight: 800;
+    }
+
+    .form-control:focus {
+        box-shadow: 0 0 0 0.25rem rgba(255, 159, 67, 0.5);
+        border-color: #ff9f43;
+    }
+    .form-control{
+        background-color: #d0d0d0 !important;
+    }
+    .section-title{
+        color: #ff9f43;
+    }
+
+    .btn-save {
+        background-color: #ff9f43;
+        border: none;
+        width: 100%;
+        margin-top: 1rem;
+    }
+
+    .btn-save:hover {
+        background-color: #f08c14;
+    }
+
+    @media (max-width: 460px) {
+        body {
+            padding: 1rem;
+        }
+
+        .edit-card {
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+        }
+    }
+</style>
+{% endblock %}
+{% block content %}
+<div class="main">
+    <main class="spotdetails-card">
+        <h2 class="section-title"><i class="bi bi-calendar-range-fill"></i> SPOT DETAILS</h2>
+        <form method="POST" action="#">
+            <div class="mb-3">
+                <label for="SpotId" class="form-label">SPOT ID:</label>
+                <input type="text" class="form-control" id="SpotId" name="SpotId" value="{{parkingspot.id}}" readonly />
+            </div>
+            <div class="mb-3">
+                <label for="status" class="form-label">STATUS:</label>
+                <input type="text" class="form-control" id="status" name="status" value="{{ 'Occupied' if parkingspot.status == 'O' else 'Available' }}" readonly />
+            </div>
+            {% if parkingspot.status == "O" %}
+             <a href="{{ url_for('moredetails',id=parkingspot.id ) }}" class="btn btn-save">SEE MORE DETAILS</a>
+            {% endif %}
+            <a href="{{ url_for('delete_spot_post',id=parkingspot.id ) }}" class="btn btn-save">DELETE</a>
+            <a href="{{ url_for('admin' ) }}" class="btn btn-save">CLOSE</a>
+            
+        </form>
+    </main>
+    </div>
+{% endblock %}

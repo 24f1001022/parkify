@@ -1,0 +1,55 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+Delete Lot Page
+{% endblock %}
+{% block style %}
+<style>
+    .home {
+        background-color: #486a93;
+        color: #fff;
+        min-height: 100vh;
+        padding: 2rem;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        padding-top: 5rem;
+    }
+
+    .title {
+        color: red;
+    }
+    .container{
+        background-color: #1a2a44;
+        color: #fff;
+        max-width: 450px;
+        width: 100%;
+        padding: 2rem;
+        border-radius: 1rem;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    }
+    .btn{
+        background-color: coral;
+        color: #fff;
+        font-size: 1.25rem;
+    }
+    .btn:hover{
+        background-color: cornflowerblue;
+        color: black;
+    }
+    #lotname{
+        font-weight: 550;
+    }
+</style>
+{% endblock %}
+{% block content %}
+<div class="home">
+    <div class="container d-flex flex-column align-items-center">
+        <div class="title">
+            <h2>CONFORMATION</h2>
+        </div>
+        <div class="mt-2"><h5>ARE YOU SURE ? YOU WANT TO DELETE THIS <span id="lotname">{{parkinglot.prime_location_name}}</span> LOT</h5></div>
+        <form method="post">
+            <div class="button pt-4 form-actions"><button class="btn" type="submit">Continue</button></div>
+        </form>
+    </div>
+</div>
+{% endblock %}

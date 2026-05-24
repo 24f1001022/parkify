@@ -1,0 +1,113 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    All Users
+{% endblock %}
+
+{% block style %}
+<style>
+    home {
+        background-color: #486a93;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        color: #fff;
+    }
+
+    .user-card {
+        background: #1a2a44;
+        border-radius: 1rem;
+        padding: 2rem;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        width: 100%;
+        max-width: 960px;
+        margin: 2rem auto;
+    }
+
+    h2 {
+        color: #ff9f43;
+        text-align: center;
+        margin-bottom: 2rem;
+        font-weight: 700;
+    }
+
+    .section-title {
+        color: #84d2ff;
+        font-size: 1.25rem;
+        margin-bottom: 1rem;
+        text-align: left;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        color: #fff;
+    }
+
+    th, td {
+        padding: 0.75rem;
+        border-bottom: 1px solid #3b4e6a;
+        text-align: left;
+    }
+
+    th {
+        color: #ff9f43;
+    }
+
+    .btn-delete {
+        background-color: #e74c3c;
+        color: white;
+        padding: 0.3rem 0.7rem;
+        border: none;
+        border-radius: 0.4rem;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    .btn-delete:hover {
+        background-color: #c0392b;
+    }
+
+    @media (max-width: 768px) {
+        .user-card {
+            padding: 1rem;
+        }
+
+        table th, table td {
+            font-size: 0.9rem;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="home">
+<main class="user-card">
+    <h2><i class="bi bi-people-fill"></i> All Registered Users</h2>
+
+    <div class="section">
+        <div class="section-title">📋 User List</div>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Full Name</th>
+                    <th>Email</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                <tr>
+                    <td>{{ user.id }}</td>
+                    <td>{{ user.full_name }}</td>
+                    <td>{{ user.email }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</main>
+</div>
+{% endblock %}

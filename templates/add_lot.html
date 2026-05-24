@@ -1,0 +1,135 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    Add New Parking Lot
+{% endblock %}
+
+{% block style %}
+<style>
+    .home {
+        background-color: #486a93;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        color: #fff;
+        padding: 2rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .form-card {
+        background-color: #1a2a44;
+        padding: 2rem 3rem;
+        border-radius: 1rem;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+        width: 100%;
+        max-width: 600px;
+    }
+
+    .form-card h2 {
+        background-color: #ff9f43;
+        color: #1a2a44;
+        padding: 0.5rem 1rem;
+        border-radius: 0.5rem;
+        text-align: center;
+        font-weight: bold;
+        margin-bottom: 2rem;
+    }
+
+    .form-group {
+        margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+        color: #fff;
+    }
+
+    .form-control, textarea {
+        width: 100%;
+        padding: 0.5rem;
+        border-radius: 0.5rem;
+        border: none;
+        background-color: #e0e0e0;
+        color: #212529;
+        font-size: 1rem;
+    }
+
+    .form-control:focus, textarea:focus {
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(255, 159, 67, 0.5);
+        border: 2px solid #ff9f43;
+    }
+
+    .form-actions {
+        display: flex;
+        justify-content: space-between;
+        gap: 1rem;
+        margin-top: 2rem;
+    }
+
+    .btn {
+        flex: 1;
+        padding: 0.75rem;
+        font-weight: bold;
+        border: none;
+        border-radius: 0.5rem;
+        color: #1a2a44;
+        background-color: #ff9f43;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .btn:hover {
+        background-color: #f08c14;
+    }
+
+    .btn-cancel {
+        background-color: #90caf9;
+    }
+
+    .btn-cancel:hover {
+        background-color: #64b5f6;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="home">
+<div class="form-card">
+    <h2>New Parking Lot</h2>
+    <form method="POST" action="#">
+        <div class="form-group">
+            <label for="location_name">Prime Location Name:</label>
+            <input type="text" class="form-control" placeholder="DLF MALL" id="location_name" name="location_name" required>
+        </div>
+
+        <div class="form-group">
+            <label for="address">Address:</label>
+            <textarea id="address" class="form-control" placeholder="Cyber city Gurugram" name="address" rows="3" required></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="pin_code">Pin Code:</label>
+            <input type="text" class="form-control" id="pin_code" placeholder="116002" name="pin_code" pattern="\d{6}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="price_per_hour">Price (per hour):</label>
+            <input type="number" class="form-control" id="price_per_hour" placeholder="100" name="price_per_hour" step="0.01" required>
+        </div>
+
+        <div class="form-group">
+            <label for="max_spots">Maximum Spots:</label>
+            <input type="number" class="form-control" id="max_spots" placeholder="10" name="max_spots" required>
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn">Add</button>
+            <a href="#" class="btn btn-cancel text-center">Cancel</a>
+        </div>
+    </form>
+</div>
+</div>
+{% endblock %}

@@ -1,0 +1,99 @@
+{% extends 'layout.html' %}
+{% block title %}Admin Summary{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center mb-5 text-warning fw-bold">Admin Summary Dashboard</h2>
+    <div class="row g-4 justify-content-center">
+        <div class="col-md-6">
+            <div class="card bg-dark border-0 shadow rounded-4">
+                <div class="card-body">
+                    <h5 class="card-title text-center text-light mb-3">Revenue from Each Parking Lot</h5>
+                    <canvas id="revenueChart" height="300"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card bg-dark border-0 shadow rounded-4">
+                <div class="card-body">
+                    <h5 class="card-title text-center text-light mb-3">Available vs Occupied Spots</h5>
+                    <canvas id="availabilityChart" height="300"></canvas>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    const revenueData = {
+        labels: {{ revenue_data | map(attribute=0) | list | tojson | safe }},
+        datasets: [{
+            label: 'Total Revenue',
+            data: {{ revenue_data | map(attribute=1) | list | tojson | safe }},
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.6)',
+                'rgba(54, 162, 235, 0.6)',
+                'rgba(255, 206, 86, 0.6)',
+                'rgba(75, 192, 192, 0.6)',
+                'rgba(153, 102, 255, 0.6)',
+                'rgba(255, 159, 64, 0.6)'
+            ],
+            borderColor: 'black',
+            borderWidth: 1
+        }]
+    };
+    new Chart(document.getElementById('revenueChart'), {
+        type: 'doughnut',
+        data: revenueData,
+        options: {
+            plugins: {
+                legend: {
+                    labels: { color: '#fff' }
+                }
+            }
+        }
+    });
+
+    const availabilityData = {
+        labels: {{ availability_data | map(attribute='location') | list | tojson | safe }},
+        datasets: [
+            {
+                label: 'Available',
+                data: {{ availability_data | map(attribute='available') | list | tojson | safe }},
+                backgroundColor: 'rgba(75, 192, 192, 0.7)'
+            },
+            {
+                label: 'Occupied',
+                data: {{ availability_data | map(attribute='occupied') | list | tojson | safe }},
+                backgroundColor: 'rgba(255, 99, 132, 0.7)'
+            }
+        ]
+    };
+
+    new Chart(document.getElementById('availabilityChart'), {
+        type: 'bar',
+        data: availabilityData,
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: { color: "#fff" },
+                    grid: { color: "#444" }
+                },
+                x: {
+                    ticks: { color: "#fff" },
+                    grid: { color: "#444" }
+                }
+            },
+            plugins: {
+                legend: {
+                    labels: { color: '#fff' }
+                }
+            }
+        }
+    });
+</script>
+{% endblock %}

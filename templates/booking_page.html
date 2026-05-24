@@ -1,0 +1,100 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    Booking Page
+{% endblock %}
+
+{% block style %}
+<style>
+    .main {
+        background-color: #486a93;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        color: #fff;
+    }
+
+    .booking-card {
+        background: #1a2a44;
+        border-radius: 1rem;
+        padding: 2rem;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        width: 100%;
+        max-width: 500px;
+    }
+
+    .edit-card h2 {
+        font-weight: 700;
+        color: #ff9f43;
+        text-align: center;
+        margin-bottom: 1.5rem;
+    }
+
+    .form-label {
+        color: #cfd8dc;
+        font-weight: 800;
+    }
+
+    .form-control:focus {
+        box-shadow: 0 0 0 0.25rem rgba(255, 159, 67, 0.5);
+        border-color: #ff9f43;
+    }
+    .form-control{
+        background-color: #d0d0d0 !important;
+    }
+    .section-title{
+        color: #ff9f43;
+    }
+
+    .btn-save {
+        background-color: #ff9f43;
+        border: none;
+        width: 100%;
+        margin-top: 1rem;
+    }
+
+    .btn-save:hover {
+        background-color: #f08c14;
+    }
+
+    @media (max-width: 460px) {
+        body {
+            padding: 1rem;
+        }
+
+        .edit-card {
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="main">
+<main class="booking-card">
+    <h2 class="section-title"><i class="bi bi-calendar-range-fill"></i> BOOKING</h2>
+    <form method="POST" action="{{ url_for('booking_post', id=parkinglot.id) }}">
+        <div class="mb-3">
+            <label for="SpotId" class="form-label">SPOT ID:</label>
+            <input type="text" class="form-control" id="SpotId" name="SpotId" value="{{available_spot.id}}" readonly />
+        </div>
+        <div class="mb-3">
+            <label for="LotId" class="form-label">LOT ID:</label>
+            <input type="text" class="form-control" id="LotId" name="LotId" value="{{parkinglot.id}}" readonly />
+        </div>
+        <div class="mb-3">
+            <label for="UserId" class="form-label">USER ID:</label>
+            <input type="text" class="form-control" id="UserId" name="UserId" value="{{g.user.id}}" readonly />
+        </div>
+        <div class="mb-3">
+            <label for="VehicalNo" class="form-label">Vehicle No:</label>
+            <input type="text" class="form-control" id="VehicalNo" name="VehicalNo" placeholder="DL3SFA2038" required />
+        </div>
+        <button type="submit" class="btn btn-save">Book Now</button>
+    </form>
+</main>
+</div>
+{% endblock %}
