@@ -1,7 +1,9 @@
-mkdir api
 
-import sys, os
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+import sys
+import os
+
+root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, root)
+os.chdir(root)
+
 from app import app
-
-handler = app
